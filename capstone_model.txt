@@ -1,0 +1,38 @@
+         vATS (0...N)
+RESOURCES+-------------
+(1...M)  |  'Zrv'  amount of data of type 'r' in vat 'v'
+         |
+         |
+
+
+         vATS (0...N)
+         +-------------
+         |  Cv   is capacity in vats. 
+
+
+
+         vATS (0...N)
+RESOURCES+-------------
+(1...M)  |  'Arv'  Acceptability Matrix.
+         |
+         |
+
+
+         vATS (0...N)
+VATS     +-------------
+(1...M)  |  'cvv'  cost of moving stuff.
+         |
+         |
+
+
+         vATS (0...N)
+VATS     +-------------
+(1...M)  |  'kvv'  max data that can move in a epoch.
+         |
+         |
+
+
+K is the maximum amount of data tha can be moved in one epoch. 
+
+Vrv(x) amount of data lost, when X amount of data for type 'r' is removed from vat 'v'. 
+

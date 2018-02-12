@@ -1,0 +1,99 @@
+# Data Retention Model
+#
+# Author: Faraz Shaikh 
+# Carnegie Mellon University.
+#
+# The problem find the minimum value of data lost, in a SPE cleaning cycle.
+#
+# References:
+# Dantzig, G B., Linear Programming and Extensions
+# Princeton University Press, Princeton, New Jersey, 1963,
+# Chapter 3-3.
+
+
+
+
+set SRC;
+/* canning plants */
+
+
+set DST;
+/* markets */
+
+
+param supply{i in SRC};
+/* capacity of plant i in cases */
+
+
+param demand{j in DST};
+/* demand at market j in cases */
+
+
+param vrn{i in SRC, j in DST};
+/* distance in thousands of miles */
+
+
+param value_lost{i in SRC, j in DST} := vrn[i,j];
+/* transport cost in thousands of dollars per case */
+
+
+var xdecision_var{i in SRC, j in DST} >= 0;
+/* shipment quantities in cases */
+
+
+minimize data_lost_value: sum{i in SRC, j in DST} value_lost[i,j] * xdecision_var[i,j];
+/* total transportation costs in thousands of dollars */
+
+
+s.t. supply_constraint{i in SRC}: sum{j in DST} xdecision_var[i,j] <= supply[i];
+/* observe supply limit at plant i */
+
+s.t. demand_constraint{j in DST}: sum{i in SRC} xdecision_var[i,j] >= demand[j];
+/* satisfy demand at market j */
+
+
+
+
+
+
+
+data;
+set SRC := S0R1 S0R2 S0R3 S1R1 S1R2 S1R3 S2R1 S2R2 S2R3 S1 S2;
+set DST := SN0  SN1 SN2 SINK;
+
+
+
+param supply := S0R1 100
+                S0R2 100
+                S0R3 100
+                S1R1 200
+                S1R2 100
+                S1R3 0
+                S2R1 0
+                S2R2 100
+                S2R3 200
+                S1   300
+                S2   300;
+                
+
+param demand := SN0  0
+		SN1  300
+		SN2  300
+		SINK 300;
+
+
+
+param vrn:      SN0  SN1  SN2  SINK :=
+         S0R1   999  000  999  88
+         S0R2   999  000  000  89
+         S0R3   999  999  000  90
+         S1R1   999  000  999  88
+         S1R2   999  000  040  89
+         S1R3   999  000  999  90
+         S2R1   999  999  000  88
+         S2R2   999  060  000  89
+         S2R3   999  999  000  90
+         S1     999  999  999  000
+         S2     999  999  999  000
+
+end;

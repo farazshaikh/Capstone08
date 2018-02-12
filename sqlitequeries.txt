@@ -1,0 +1,3 @@
+ select (avg(strftime("%s",datetime('now')) - strftime("%s",t))) from N1;
+insert into N3(rc) values (datetime('now'),1);
+insert into N3(rc) values (1);
